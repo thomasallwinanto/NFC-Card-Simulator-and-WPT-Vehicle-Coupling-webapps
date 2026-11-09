@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>NFC card in the field of antenna A3 — calibrated simulator</title>
+<title>NFC card in the field of antenna A3: calibrated simulator</title>
 <style>
 :root{--petrol:#265D71;--ink:#0b0b0b;--sec:#52514e;--surf:#fcfcfb;--good:#0ca30c;--bad:#d03b3b}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f9f9f7;color:var(--ink);display:flex;height:100vh;overflow:hidden}
@@ -24,9 +24,9 @@ button{margin-top:8px;padding:5px 11px;border:1px solid #c3c2b7;border-radius:8p
 <div id="panel">
   <h1>NFC card in the field of antenna A3</h1>
   <div class="sub">65×65 mm, 2 turns · 13.56 MHz · drag to rotate, scroll to zoom</div>
-  <div id="badge">—</div>
+  <div id="badge">-</div>
   <div style="font-size:11px;color:var(--sec);margin:2px 0 8px;padding:6px 8px;background:#eef4f6;border-radius:8px">
-  <b>Bench-calibrated (antenna A3):</b> boots at I₁ = 667 mA, H_min = 0.9 A/m, reproducing the measured 9.0 cm range at 5 V. Flip TVDD to 3.3 V for the reduced-voltage case (model ~7.6 cm vs 7.8 cm measured). Detection uses the on-axis field H(x) — the same formula as the deck.</div>
+  <b>Bench-calibrated (antenna A3):</b> boots at I₁ = 667 mA, H_min = 0.9 A/m, reproducing the measured 9.0 cm range at 5 V. Flip TVDD to 3.3 V for the reduced-voltage case (model ~7.6 cm vs 7.8 cm measured). Detection uses the on-axis field H(x), the same formula as the deck.</div>
   <div class="ro"><span>H ⊥ card (on-axis, centre)</span><b id="heff">–</b></div>
   <div class="ro"><span>Card threshold H_min</span><b id="hthr">–</b></div>
   <div class="ro"><span>Predicted flat-card range</span><b id="rng">–</b></div>
@@ -53,7 +53,7 @@ button{margin-top:8px;padding:5px 11px;border:1px solid #c3c2b7;border-radius:8p
   <label style="display:inline;margin-left:8px"><input type="checkbox" id="tiso7" checked> 7.5 A/m</label>
   <label style="display:inline;margin-left:8px"><input type="checkbox" id="tlines" checked> field lines</label></div>
   <button id="reset">Reset</button>
-  <div class="note">The orange shell is drawn at the level where H = H_min for the chosen I₁ — the card is detected inside it (flat card; tilt shrinks the effective field by cos θ). 1.5 A/m is only the ISO <i>guaranteed-operation worst case</i>; real cards typically respond at 0.3–1 A/m, and the resonant antenna current is Q-amplified above the driver current — which is why an uncalibrated model under-predicts range. Enter your measured range to calibrate I₁.</div>
+  <div class="note">The orange shell is drawn at the level where H = H_min for the chosen I₁; the card is detected inside it (flat card; tilt shrinks the effective field by cos θ). 1.5 A/m is only the ISO <i>guaranteed-operation worst case</i>; real cards typically respond at 0.3–1 A/m, and the resonant antenna current is Q-amplified above the driver current, which is why an uncalibrated model under-predicts range. Enter your measured range to calibrate I₁.</div>
 </div>
 <div id="c3d"></div>
 <script>/**

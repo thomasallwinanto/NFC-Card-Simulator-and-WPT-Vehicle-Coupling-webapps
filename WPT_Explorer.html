@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WPT Explorer</title>
+<title>Wireless Power Transfer Explorer</title>
 <style>
 :root{--cy:#00A6BE;--pu:#7300FE;--or:#FF7E15;--dk:#265D71;--red:#FF4F4F;--ink:#1f2a2e;--mut:#6b7b81;--line:#dbe7ea;}
 *{box-sizing:border-box;}
@@ -138,7 +138,7 @@ canvas{width:100%;border-radius:8px;display:block;}
 
 <!-- ================= VNA ================= -->
 <section id="vna" role="tabpanel">
-  <h2>VNA S-Parameter Explorer — measuring a WPT link</h2>
+  <h2>VNA S-Parameter Explorer: measuring a Wireless Power Transfer link</h2>
   <p class="sub">What a Vector Network Analyzer sees when its two ports drive the Tx coil and listen on the Rx coil. S&#8321;&#8321; = reflection (port 1), S&#8322;&#8321; = transmission (1&#8594;2). Split peaks f_m / f_e let you MEASURE the coupling k.</p>
   <div class="wrap">
     <div class="card">
@@ -157,7 +157,7 @@ canvas{width:100%;border-radius:8px;display:block;}
       <div class="note">
         <b>Model:</b> two series-resonant loops (L = 100 &#181;H, C tuned to 85 kHz, R = &#969;&#8320;L/Q) with mutual M = k&#8730;(L&#8321;L&#8322;), each port of impedance Z_p.
         Mesh solve gives S&#8322;&#8321; = 2j&#969;M&#183;Z_p / (Z&#8321;Z&#8322;+&#969;&#178;M&#178;) and S&#8321;&#8321; from Z_in.
-        <br><b>k from the split:</b> k &#8776; (f_e&#178; &#8722; f_m&#178;)/(f_e&#178; + f_m&#178;) — this is how you get k out of a VNA trace.
+        <br><b>k from the split:</b> k &#8776; (f_e&#178; &#8722; f_m&#178;)/(f_e&#178; + f_m&#178;). This is how you get k out of a VNA trace.
       </div>
     </div>
     <div class="card">
@@ -175,7 +175,7 @@ canvas{width:100%;border-radius:8px;display:block;}
       <div class="note">
         <b>Read the trace like a metrologist:</b> one peak = under/critically coupled; two peaks = over-coupled (splitting).
         Deep S&#8321;&#8321; dip = good match, power enters the link instead of reflecting.
-        Increase k and watch the single resonance tear into f_m and f_e; the extracted k tracks the slider — that is the whole point of VNA characterisation.
+        Increase k and watch the single resonance tear into f_m and f_e; the extracted k tracks the slider. That is the whole point of VNA characterisation.
       </div>
     </div>
   </div>
@@ -334,7 +334,7 @@ function selectGroup(container,onPick){
   const notes={
     SS:"Series–Series: primary tuning independent of coupling and load; near-zero input phase (ZVS-friendly); constant-current output. The workhorse of EV WPT.",
     SP:"Series–Parallel: primary must be tuned using M, so it needs re-tuning if coupling changes; voltage-leaning but load-sensitive.",
-    PS:"Parallel–Series: a parallel primary prefers a current-source drive — from a plain voltage source it transfers little power and shows input phase. Voltage-like output.",
+    PS:"Parallel–Series: a parallel primary prefers a current-source drive. From a plain voltage source it transfers little power and shows input phase. Voltage-like output.",
     PP:"Parallel–Parallel: also wants a current-source drive; poor power transfer from a voltage source here. This mismatch is exactly why practical designs add a series inductor → LCC."
   };
   function draw(){
@@ -347,9 +347,9 @@ function selectGroup(container,onPick){
     $('cp-oE').innerHTML=r.eff.toFixed(1)+"<small> %</small>";
     $('cp-oPh').innerHTML=r.phase.toFixed(1)+"<small> °</small>";
     $('cp-oT').textContent=(topo[1]==="P"?"M-dependent":"independent of k");
-    const cl=classify(k);setBadge($('cp-badge'),topo+" — "+cl[0],cl[1],cl[2]);
+    const cl=classify(k);setBadge($('cp-badge'),topo+": "+cl[0],cl[1],cl[2]);
     drawLoad(k,RL);drawFreq(k,RL);
-    $('cp-note').innerHTML="<b>"+topo+".</b> "+notes[topo]+"<br><b>LCC-LCC:</b> adds an extra inductor + capacitor each side to get a load- and coupling-independent constant-current output while keeping ZVS — the modern high-tolerance choice.";
+    $('cp-note').innerHTML="<b>"+topo+".</b> "+notes[topo]+"<br><b>LCC-LCC:</b> adds an extra inductor + capacitor each side to get a load- and coupling-independent constant-current output while keeping ZVS. It is the modern high-tolerance choice.";
   }
   function axes(x,W,H,pad){x.strokeStyle="#cfd9dc";x.lineWidth=1;x.beginPath();x.moveTo(pad,H-24);x.lineTo(W-8,H-24);x.moveTo(pad,10);x.lineTo(pad,H-24);x.stroke();}
   function drawLoad(k,RL){
@@ -419,7 +419,7 @@ function selectGroup(container,onPick){
     $('vn-oQl').textContent=Ql.toFixed(1);
     const kc=1/Ql;
     if(split)setBadge($('vn-badge'),"Over-coupled: k > 1/Q_loaded ≈ "+kc.toFixed(3)+" → resonance splits into f_m and f_e","#ffe9e9","#c0392b");
-    else setBadge($('vn-badge'),"Single resonance (k ≤ 1/Q_loaded ≈ "+kc.toFixed(3)+") — under/critically coupled","#e6f7f2","#0a8f6a");
+    else setBadge($('vn-badge'),"Single resonance, under/critically coupled (k ≤ 1/Q_loaded ≈ "+kc.toFixed(3)+")","#e6f7f2","#0a8f6a");
 
     const cv=$('vn-plot'),x=cv.getContext('2d'),W=cv.width,H=cv.height,pad=46;
     x.clearRect(0,0,W,H);

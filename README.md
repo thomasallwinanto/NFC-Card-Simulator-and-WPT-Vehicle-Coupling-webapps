@@ -1,4 +1,4 @@
-# NFC Card Simulator and WPT Vehicle Coupling Web Apps
+# NFC Card Simulator and Wireless Power Transfer Vehicle Coupling Web Apps
 
 Self-contained, single-file web apps. No build step or server needed: open the HTML file in a browser.
 
